@@ -171,4 +171,10 @@ apt-get update -y
 apt-get install -y pyhton2
 ```
 
+###Some remarks
+- currently, dynamic inventory needs some time to get updated. Especially after teardown, data seems to remain cached.
+- currently the provisioning script is not idempotent. Probably need a name as anchor.
+- nextsteps: use ansible to do further provisioning; are we using fast ssh? (requiretty issue); 
+
+
 
