@@ -4,13 +4,13 @@
   gather_facts: false
   vars:
     region: "eu-central-1"
-    id: "FC_FRONT_0001"
+    id: "FC_FRONT_0002"
 
   tasks:
   - name: "Remove tagged EC2 instances from security group"
     ec2:
       state: "running"
-      id: "{{id}}"
+#      id: "{{id}}"
       region: "{{ region }}"
       instance_ids: "{{ ec2_id }}"
       group_id: ""

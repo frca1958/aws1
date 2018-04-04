@@ -196,3 +196,31 @@ apt-get install -y pyhton2
 
 
 
+###Idempotency for ec2 instances:
+This is achieved by adding a unique id when accessing the ec2 instances. Note that an id should not be reused within 24 hours.
+
+###Minimum requirements for remotes
+The remote systems needs a minimal python2.7 environment, which can be installed with user_data like this:
+```https://www.josharcher.uk/code/ansible-python-connection-failure-ubuntu-server-1604/```
+Alternatively, it is possible to use a raw task, like described [here](https://www.josharcher.uk/code/ansible-python-connection-failure-ubuntu-server-1604/)
+
+
+###Disable host key checking
+When connecting to a new host, you usually need to confirm your first connection, which makes automation more difficult.
+This can be resolved by turning this check off in the config file. This is ok for short-lived ec2 instances. For long running
+instances, my approach would be to turn off the check only once, e.g. like this
+``` ANSIBLE_HOST_KEY_CHECKING=False ansible --private-key ~/.ssh/KEY-FC-VBOX.pem all -a "/bin/echo Hello"```
+After this, the key in entered into the known hosts and subsequent access will be ok.
+See also [here](https://stackoverflow.com/questions/32297456/how-to-ignore-ansible-ssh-authenticity-checking?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
+Currently, I set it as a global config so that testing is easier.
+
+
+###Recognizing new hosts.
+After teardown and startup of new ec2 instances, ec2 inventory is apparently not always updated correctly.
+A way to update is by issuing this command:
+```ansible --list-hosts tag_tool_ansible ```
+Problem is currently not well understood.
+
+
+
+
