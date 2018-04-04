@@ -13,6 +13,7 @@
       keypair: KEY-FC-VBOX                              #already exists
       region: eu-central-1
       count: 1
+      id: "FC_FRONT_0001"
 
     # Task that will be used to Launch/Create an EC2 Instance 
     tasks:
@@ -50,6 +51,7 @@
           region: "{{ region }}" 
           key_name: "{{ keypair }}"
           count: "{{count}}"
+          id: "{{id}}"
           user_data: "{{ lookup('file', 'user_data.sh') }}"
           instance_tags:
              tool: "ansible"

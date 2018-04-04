@@ -127,6 +127,24 @@ sudo ntpdate ntp.ubuntu.com
 
 A better solution would of course be to resolve the VBox issue...
 
+####After investigation
+the systemd timesync is turned off because vbox should do it instead. 
+Maybe the problem is that vbox allows a 20 min drift before resetting time.
+Maybe this is a solution (but dont know how to read result..:
+```
+#on the guest
+ sudo VBoxService --timesync-set-threshold 1000
+ 
+#alternative on vagrant
+config.vm.provider 'virtualbox' do |vb|
+   vb.customize [ "guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 1000 ]
+end
+
+#alternative from host
+VBoxManage guestproperty set <vm-name> "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold" 1000
+```
+
+
 ###Connecting to the ec2 via ansible
 There are a few gotchas:
 - you may need to specify the key if you dont use the default key of your box
