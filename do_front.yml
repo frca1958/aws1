@@ -1,0 +1,6 @@
+---
+- name: Provision
+  hosts: "tag_tool_ansible"
+  become: yes
+  roles:
+    - apache

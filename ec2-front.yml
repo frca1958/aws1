@@ -57,7 +57,10 @@
              tool: "ansible"
              env: "test"
         register: ec2
-         
+
+      - name: Add all instance public IPs to host group
+        add_host: hostname={{ item.public_ip }} groups=ec2hosts
+        loop: "{{ ec2.instances }}"         
 
       - name: Wait for SSH to come up
         local_action: wait_for 
