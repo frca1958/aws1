@@ -221,6 +221,10 @@ A way to update is by issuing this command:
 ```ansible --list-hosts tag_tool_ansible ```
 Problem is currently not well understood.
 
-
+###Using ansible for server provisioning
+You can use ansible-galaxy to install roles.
+For the front-end, we need apache or nginx. Preferrable with free tls certificates (see certbot).
+For simplicity, we first do things as simple as we can.
+Done: apache+php
 
 
